@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'profile_screen.dart';
 import 'product_details_screen.dart';
-import 'browse_screen.dart';
-import 'cart_screen.dart';
-import 'checkout_screen.dart';
 import '../widgets/product_card.dart';
 import '../models/product_model.dart';
-import '../services/cart_service.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -17,11 +13,11 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
   int _selectedTab = 0; // For header navigation bar
 
-  // Dummy product data with 5 products
+  // Dummy product data with 15 products
   final List<Product> allProducts = [
     Product(
       id: '1',
-      name: 'Laptop 1',
+      name: 'Laptop 55',
       description: 'High-performance laptop for professionals.',
       rating: 4.5,
       imageUrl: 'https://w7.pngwing.com/pngs/723/514/png-transparent-laptop-personal-computer-laptops-electronics-photography-computer-thumbnail.png',
@@ -81,6 +77,136 @@ class _HomeScreenState extends State<HomeScreen> {
         'Great for work.',
         'Secure and reliable.',
         'Excellent build quality.',
+      ],
+      category: 'cheap',
+    ),
+    Product(
+      id: '6',
+      name: 'Laptop 6',
+      description: '2-in-1 convertible laptop.',
+      rating: 4.4,
+      imageUrl: 'https://w7.pngwing.com/pngs/723/514/png-transparent-laptop-personal-computer-laptops-electronics-photography-computer-thumbnail.png',
+      reviews: [
+        'Versatile and functional.',
+        'Great for presentations.',
+        'Sleek design.',
+      ],
+      category: 'new',
+    ),
+    Product(
+      id: '7',
+      name: 'Laptop 7',
+      description: 'Budget-friendly laptop for everyday use.',
+      rating: 3.8,
+      imageUrl: 'https://w7.pngwing.com/pngs/723/514/png-transparent-laptop-personal-computer-laptops-electronics-photography-computer-thumbnail.png',
+      reviews: [
+        'Good for basic tasks.',
+        'Affordable and reliable.',
+        'Decent performance.',
+      ],
+      category: 'cheap',
+    ),
+    Product(
+      id: '8',
+      name: 'Laptop 8',
+      description: 'Ultra-slim laptop for professionals.',
+      rating: 4.6,
+      imageUrl: 'https://w7.pngwing.com/pngs/723/514/png-transparent-laptop-personal-computer-laptops-electronics-photography-computer-thumbnail.png',
+      reviews: [
+        'Sleek and stylish.',
+        'Great for business use.',
+        'Lightweight and powerful.',
+      ],
+      category: 'top',
+    ),
+    Product(
+      id: '9',
+      name: 'Laptop 9',
+      description: 'High-performance laptop for gaming.',
+      rating: 4.8,
+      imageUrl: 'https://w7.pngwing.com/pngs/723/514/png-transparent-laptop-personal-computer-laptops-electronics-photography-computer-thumbnail.png',
+      reviews: [
+        'Perfect for gaming.',
+        'Excellent graphics.',
+        'Fast and reliable.',
+      ],
+      category: 'top',
+    ),
+    Product(
+      id: '10',
+      name: 'Laptop 10',
+      description: 'Affordable laptop for everyday use.',
+      rating: 3.9,
+      imageUrl: 'https://w7.pngwing.com/pngs/723/514/png-transparent-laptop-personal-computer-laptops-electronics-photography-computer-thumbnail.png',
+      reviews: [
+        'Good for daily tasks.',
+        'Affordable and reliable.',
+        'Decent performance.',
+      ],
+      category: 'cheap',
+    ),
+    Product(
+      id: '11',
+      name: 'Laptop 11',
+      description: 'Lightweight and portable laptop.',
+      rating: 4.1,
+      imageUrl: 'https://w7.pngwing.com/pngs/723/514/png-transparent-laptop-personal-computer-laptops-electronics-photography-computer-thumbnail.png',
+      reviews: [
+        'Very portable.',
+        'Great battery life.',
+        'Perfect for travel.',
+      ],
+      category: 'new',
+    ),
+    Product(
+      id: '12',
+      name: 'Laptop 12',
+      description: 'Gaming laptop with high-end specs.',
+      rating: 4.7,
+      imageUrl: 'https://w7.pngwing.com/pngs/723/514/png-transparent-laptop-personal-computer-laptops-electronics-photography-computer-thumbnail.png',
+      reviews: [
+        'Amazing for gaming.',
+        'Smooth performance.',
+        'Worth the price.',
+      ],
+      category: 'top',
+    ),
+    Product(
+      id: '13',
+      name: 'Laptop 13',
+      description: 'Business laptop with security features.',
+      rating: 4.3,
+      imageUrl: 'https://w7.pngwing.com/pngs/723/514/png-transparent-laptop-personal-computer-laptops-electronics-photography-computer-thumbnail.png',
+      reviews: [
+        'Great for work.',
+        'Secure and reliable.',
+        'Excellent build quality.',
+      ],
+      category: 'cheap',
+    ),
+    Product(
+      id: '14',
+      name: 'Laptop 14',
+      description: '2-in-1 convertible laptop.',
+      rating: 4.4,
+      imageUrl: 'https://w7.pngwing.com/pngs/723/514/png-transparent-laptop-personal-computer-laptops-electronics-photography-computer-thumbnail.png',
+      reviews: [
+        'Versatile and functional.',
+        'Great for presentations.',
+        'Sleek design.',
+      ],
+      category: 'new',
+    ),
+    Product(
+      id: '15',
+      name: 'Laptop 15',
+      description: 'Budget-friendly laptop for everyday use.',
+      rating: 3.8,
+      imageUrl: 'https://w7.pngwing.com/pngs/723/514/png-transparent-laptop-personal-computer-laptops-electronics-photography-computer-thumbnail.png',
+      reviews: [
+        'Good for basic tasks.',
+        'Affordable and reliable.',
+        'Decent performance.',
       ],
       category: 'cheap',
     ),
@@ -147,7 +273,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
-                    'Welcome to XYZ App',
+                    'Welcome to XYZzzzz App',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -200,31 +326,12 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: 'Cart',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Profile',
           ),
         ],
         currentIndex: _selectedIndex,
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-            if (index == 1) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => CartScreen()),
-              );
-            } else if (index == 2) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ProfileScreen()),
-              );
-            }
-          });
-        },
+        onTap: _onItemTapped,
       ),
     );
   }
