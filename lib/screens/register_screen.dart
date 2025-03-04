@@ -122,7 +122,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Register"),
+        title: Text("Sign up"),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -134,10 +134,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Logo
+                 Text("Sign up", style: TextStyle(fontSize: 40,fontWeight: FontWeight.bold)),
                 Image.network(
-                  "https://images-platform.99static.com//stZpFSlgo-84NpYmEosPfEu2te8=/479x42:1396x959/fit-in/500x500/99designs-contests-attachments/98/98379/attachment_98379445",
-                  width: 150, // Adjust the size as needed
-                  height: 150,
+                  "assets/logo.jpg",
+                  width: 240, // Adjust the size as needed
+                  height: 240,
                 ),
                 SizedBox(height: 20), // Spacing between logo and form
                 // Email Field
@@ -190,7 +191,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                     child: Text(
-                      "Register",
+                      "Sign Up",
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.white, // Text color

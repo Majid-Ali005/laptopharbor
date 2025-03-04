@@ -11,12 +11,13 @@ class SplashScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Logo
-            Image.network(
-              "https://images-platform.99static.com//stZpFSlgo-84NpYmEosPfEu2te8=/479x42:1396x959/fit-in/500x500/99designs-contests-attachments/98/98379/attachment_98379445",
+            Text("Welcome to", style: TextStyle(fontSize: 40,fontWeight: FontWeight.bold)),
+            Image.asset(
+              "assets/logo.jpg",
               width: 250, // Adjust the size as needed
               height: 250,
             ),
-            Text("Welcom To LOGIA", style: TextStyle(fontSize: 20)),
+            
             Text("a place where you can find your dream laptop", style: TextStyle(fontSize: 15)),
             SizedBox(height: 20), // Spacing between logo and button
             // Let's Start Button

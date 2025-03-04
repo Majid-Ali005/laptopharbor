@@ -45,8 +45,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: HomeScreen(),
-      // home: SplashScreen(),
-      home: LoginScreen(),
+      home: SplashScreen(),
+      // home: LoginScreen(),
       
     );
   }

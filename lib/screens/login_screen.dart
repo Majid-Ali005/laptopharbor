@@ -109,6 +109,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  
+
   void _login() async {
     if (_formKey.currentState!.validate()) {
       String email = _emailController.text.trim();
@@ -144,11 +146,12 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Logo
-                Image.asset(
-                  "assets/logo.jpg",
-                  width: 150, // Adjust the size as needed
-                  height: 150,
-                ),
+                Text("Log in", style: TextStyle(fontSize: 40,fontWeight: FontWeight.bold)),
+               Image.asset(
+  "assets/logo.jpg",
+  width: 240, // Adjust the size as needed
+  height: 240,
+),
                 SizedBox(height: 20), // Spacing between logo and form
                 // Email Field
                 SizedBox(
@@ -218,7 +221,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     );
                   },
                   child: Text(
-                    "Don't have an account? Register",
+                    "Don't have an account? Sign Up",
                     style: TextStyle(
                       color: Colors.blue, // Blue color
                     ),
