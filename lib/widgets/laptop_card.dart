@@ -76,7 +76,7 @@ class LaptopCard extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        "Buy Now",
+                        "Show Details",
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
