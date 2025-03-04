@@ -20,6 +20,7 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:laptopharbor/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'providers/cart_provider.dart';
 import 'screens/home_screen.dart';
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: HomeScreen(),
+      // home: SplashScreen(),
     );
   }
 }

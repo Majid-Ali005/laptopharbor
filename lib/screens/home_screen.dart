@@ -14,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   int _currentIndex = 0;
+  String _searchQuery = "";
 
   final List<Laptop> cheapLaptops = [
     Laptop(
@@ -141,6 +142,13 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     super.dispose();
   }
 
+  List<Laptop> _filterLaptops(List<Laptop> laptops, String query) {
+    return laptops
+        .where((laptop) =>
+            laptop.name.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -157,30 +165,32 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       ),
       body: Column(
         children: [
-          // Header Image
-          Container(
-            child: Row(
-              children: [
-                //header on image text here.
-              ],
-            ),
-            height: 150,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/header_image.jpg"),
-                
-                fit: BoxFit.cover,
+          // Search Bar (Before Header)
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: "Search products...",
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
+              onChanged: (query) {
+                setState(() {
+                  _searchQuery = query;
+                });
+              },
             ),
           ),
-          // TabBar View
+          // TabBar View with Scrollable Header
           Expanded(
             child: TabBarView(
               controller: _tabController,
               children: [
-                _buildLaptopList(cheapLaptops),
-                _buildLaptopList(newLaptops),
-                _buildLaptopList(oldLaptops),
+                _buildLaptopListWithHeader(cheapLaptops, _searchQuery),
+                _buildLaptopListWithHeader(newLaptops, _searchQuery),
+                _buildLaptopListWithHeader(oldLaptops, _searchQuery),
               ],
             ),
           ),
@@ -202,23 +212,36 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     );
   }
 
-  Widget _buildLaptopList(List<Laptop> laptops) {
-    return ListView.builder(
-      padding: EdgeInsets.all(10),
-      itemCount: laptops.length,
-      itemBuilder: (context, index) {
-        return LaptopCard(
-          laptop: laptops[index],
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ProductDetailScreen(laptop: laptops[index]),
-              ),
-            );
-          },
-        );
-      },
+  Widget _buildLaptopListWithHeader(List<Laptop> laptops, String query) {
+    final filteredLaptops = _filterLaptops(laptops, query);
+
+    return ListView(
+      children: [
+        // Header Image
+        Container(
+          height: 150,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/header_image.jpg"),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        // Laptop List
+        ...filteredLaptops.map((laptop) {
+          return LaptopCard(
+            laptop: laptop,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProductDetailScreen(laptop: laptop),
+                ),
+              );
+            },
+          );
+        }).toList(),
+      ],
     );
   }
 }
