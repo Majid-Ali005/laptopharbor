@@ -44,9 +44,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeScreen(),
+      // home: HomeScreen(),
       // home: SplashScreen(),
-      // home: LoginScreen()
+      home: LoginScreen(),
       
     );
   }
