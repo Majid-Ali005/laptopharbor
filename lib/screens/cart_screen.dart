@@ -1,54 +1,33 @@
 import 'package:flutter/material.dart';
-import 'checkout_screen.dart'; // Add this import
-import '../models/cart_item_model.dart';
-import '../services/cart_service.dart';
-import '../widgets/cart_item_widget.dart';
+import 'package:provider/provider.dart';
+import '../providers/cart_provider.dart';
+import '../models/laptop_model.dart';
 
 class CartScreen extends StatelessWidget {
-  final CartService cartService = CartService();
-
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context);
+    final cartItems = cartProvider.cartItems;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Shopping Cart'),
+        title: Text("Shopping Cart"),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: cartService.cartItems.length,
-              itemBuilder: (context, index) {
-                final item = cartService.cartItems[index];
-                return CartItemWidget(
-                  item: item,
-                  onRemove: () {
-                    cartService.removeFromCart(item.product.id);
-                  },
-                  onQuantityChanged: (quantity) {
-                    cartService.updateQuantity(item.product.id, quantity);
-                  },
-                );
+      body: ListView.builder(
+        itemCount: cartItems.length,
+        itemBuilder: (context, index) {
+          final laptop = cartItems[index];
+          return ListTile(
+            title: Text(laptop.name),
+            subtitle: Text(laptop.price),
+            trailing: IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () {
+                cartProvider.removeFromCart(laptop);
               },
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              'Total: \$${cartService.getTotalAmount().toStringAsFixed(2)}',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => CheckoutScreen()),
-              );
-            },
-            child: Text('Proceed to Checkout'),
-          ),
-        ],
+          );
+        },
       ),
     );
   }

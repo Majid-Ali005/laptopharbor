@@ -1,37 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:laptopharbor/screens/product_detail_screen.dart';
 import '../utils/shared_prefs.dart';
-import 'register_screen.dart';
-import 'home_screen.dart';
+import 'login_screen.dart';
 import '../widgets/custom_button.dart';
 
-class LoginScreen extends StatefulWidget {
+class RegisterScreen extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  void _login() async {
+  void _register() async {
     if (_formKey.currentState!.validate()) {
       String email = _emailController.text.trim();
       String password = _passwordController.text.trim();
 
-      String? storedEmail = await SharedPrefs.getEmail();
-      String? storedPassword = await SharedPrefs.getPassword();
+      await SharedPrefs.setEmail(email);
+      await SharedPrefs.setPassword(password);
 
-      if (email == storedEmail && password == storedPassword) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
-        );
-      } else {
-        Fluttertoast.showToast(msg: "Invalid email or password");
-      }
+      Fluttertoast.showToast(msg: "Registration successful!");
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginScreen()),
+      );
     }
   }
 
@@ -39,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Login"),
+        title: Text("Register"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -70,18 +65,18 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               SizedBox(height: 20),
               CustomButton(
-                text: "Login",
-                onPressed: _login,
+                text: "Register",
+                onPressed: _register,
               ),
               SizedBox(height: 10),
               TextButton(
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => RegisterScreen()),
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
                   );
                 },
-                child: Text("Don't have an account? Register"),
+                child: Text("Already have an account? Login"),
               ),
             ],
           ),

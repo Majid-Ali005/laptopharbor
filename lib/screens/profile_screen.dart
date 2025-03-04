@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -7,42 +6,67 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  String? name;
-  String? email;
-  String? phone;
-  String? location;
+  final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
 
-  @override
-  void initState() {
-    super.initState();
-    _loadUserData();
-  }
-
-  Future<void> _loadUserData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      name = prefs.getString('name');
-      email = prefs.getString('email');
-      phone = prefs.getString('phone');
-      location = prefs.getString('location');
-    });
+  void _updateProfile() {
+    if (_formKey.currentState!.validate()) {
+      // Save profile logic
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Profile Updated!")),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Name: ${name ?? 'N/A'}', style: TextStyle(fontSize: 18)),
-          SizedBox(height: 10),
-          Text('Email: ${email ?? 'N/A'}', style: TextStyle(fontSize: 18)),
-          SizedBox(height: 10),
-          Text('Phone: ${phone ?? 'N/A'}', style: TextStyle(fontSize: 18)),
-          SizedBox(height: 10),
-          Text('Location: ${location ?? 'N/A'}', style: TextStyle(fontSize: 18)),
-        ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Profile"),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              TextFormField(
+                controller: _nameController,
+                decoration: InputDecoration(labelText: "Name"),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Please enter your name";
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _emailController,
+                decoration: InputDecoration(labelText: "Email"),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Please enter your email";
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _updateProfile,
+                child: Text("Update Profile"),
+              ),
+              SizedBox(height: 20),
+              Text(
+                "Stored Values:",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10),
+              Text("Name: ${_nameController.text}"),
+              Text("Email: ${_emailController.text}"),
+            ],
+          ),
+        ),
       ),
     );
   }
